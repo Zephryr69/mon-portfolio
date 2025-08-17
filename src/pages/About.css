@@ -407,12 +407,44 @@
   color: #fff;
   font-weight: 600;
   text-decoration: none;
-  transition: transform 0.25s ease, box-shadow 0.25s ease;
+  transition: transform 0.25s ease, box-shadow 0.25s ease, background 0.25s ease;
 }
 
 .value .hero-btn:hover {
   transform: translateY(-3px);
   box-shadow: 0 8px 20px rgba(0,0,0,0.25);
+}
+
+/* --------------------Mode sombre-------------------- */
+.dark .value {
+  background: rgba(30, 30, 30, 0.6);
+  box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+}
+
+.dark .value:hover {
+  background: rgba(40, 40, 40, 0.7);
+  box-shadow: 0 15px 35px rgba(0,0,0,0.6);
+}
+
+.dark .value h3 {
+  color: #f5f5f5;
+}
+
+.dark .value ul {
+  color: #ccc;
+}
+
+.dark .value ul li::before {
+  color: #34d399; /* conserve l’accent vert */
+}
+
+.dark .value .hero-btn {
+  background: linear-gradient(135deg, #34d399, #10b981);
+  color: #fff;
+}
+
+.dark .value .hero-btn:hover {
+  box-shadow: 0 8px 20px rgba(0,0,0,0.35);
 }
 
 /* --------------------Responsive-------------------- */

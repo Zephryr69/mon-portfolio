@@ -140,7 +140,7 @@ export default function Home() {
               title: "Application C# – Gestion cantine",
               brief: "App desktop en C# pour gérer inscriptions, paiements et menus en cantine scolaire.",
               thumbnail: cantineImg,
-              link: "/projets/cantine",
+              link: "",
               tech: ["C#", "WinForms", "SQL Server"],
             },
           ].map((p, idx) => {
@@ -174,9 +174,9 @@ export default function Home() {
                   </div>
 
                   <div className="project-links">
-                    <Link to={p.link} className="project-cta">
+                    <a href={p.link} className="project-cta" target="_blank" rel="noopener noreferrer">
                       Voir le projet →
-                    </Link>
+                    </a>
                   </div>
                 </div>
               </motion.div>
