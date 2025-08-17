@@ -1,0 +1,290 @@
+@import url('https://fonts.googleapis.com/css2?family=Updock&family=Rubik:wght@400;500;700&display=swap');
+
+/* =================================
+   PALETTE & VARIABLES GLOBALES
+================================= */
+:root {
+  --color-primary: #ff8c00;
+  --color-secondary: #1f2d3d;
+  --color-accent: #f8f7f5;
+  --color-text-light: #ffffff;
+
+  --font-primary: 'Rubik', sans-serif;
+  --font-fancy: 'Updock', cursive;
+
+  --accent-hover: #ffb347;
+  --background-card: rgba(255, 255, 255, 0.72);
+
+  --navbar-height: 70px;
+  --transition-fast: 0.2s ease;
+  --transition-normal: 0.4s cubic-bezier(.4, .0, .2, 1);
+}
+
+/* Thème sombre */
+[data-theme="dark"] {
+  --color-primary: #ffb347;
+  --color-secondary: #e6eef8; /* texte plus clair en sombre */
+  --color-accent: #0f172a;
+  --color-text-light: #ffffff;
+
+  --accent-hover: #ff8c00;
+  --background-card: rgba(5, 7, 9, 0.75);
+}
+
+/* =================================
+   STYLES GLOBAUX (header-related bits only)
+================================= */
+* { box-sizing: border-box; margin: 0; padding: 0; }
+
+html, body, #root {
+  background-color: var(--color-accent);
+  color: var(--color-secondary);
+  scroll-behavior: smooth;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  -webkit-tap-highlight-color: transparent;
+  transition: background-color var(--transition-normal), color var(--transition-normal);
+}
+
+/* =================================
+   NAVBAR (base original + améliorations)
+   - conserve sticky desktop, fixed mobile
+   - garde couleurs / police inchangées
+================================= */
+.navbar {
+  position: sticky;
+  top: 0;
+  left: 0;
+  width: 100%;
+  z-index: 3000;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 10px 20px;
+  height: var(--navbar-height, 70px);
+  background-color: var(--background-card, rgba(255,255,255,0.72));
+  backdrop-filter: blur(12px);
+  border-bottom: 1px solid rgba(128, 128, 128, 0.12);
+  transition: background-color var(--transition-normal, 0.4s), transform var(--transition-fast, 0.2s);
+  gap: 12px;
+}
+
+/* Option : ombre / lift quand on scroll (activer via JS en ajoutant .scrolled) */
+.navbar.scrolled {
+  box-shadow: 0 6px 24px rgba(16,24,40,0.06);
+  backdrop-filter: blur(14px);
+}
+
+/* =================================
+   LOGO TYPOGRAPHIQUE
+================================= */
+.header-link {
+  text-decoration: none;
+  display: inline-flex;
+  transition: transform var(--transition-fast);
+}
+.header-link:hover { transform: scale(1.05); }
+
+.header { display:flex; align-items:center; gap:0.5rem; }
+.logo-container { display:flex; align-items:baseline; font-family:var(--font-primary); font-size:1.6rem; }
+.logo-bracket { color:var(--color-primary); font-weight:700; margin:0 2px; }
+.logo-prefix { font-weight:400; font-size:0.8em; color:var(--color-secondary); opacity:0.7; margin-right:5px; }
+.logo-main { font-weight:700; color:var(--color-secondary); }
+.logo-cursor { color:var(--color-primary); font-weight:700; margin-left:2px; animation: blink 1.2s infinite; }
+@keyframes blink { 50% { opacity: 0; } }
+
+/* =================================
+   MENU NAVIGATION (desktop)
+================================= */
+.navbar ul {
+  display: flex;
+  align-items: center;
+  gap: 15px;
+  list-style: none;
+}
+
+.nav-link {
+  display: inline-block;
+  text-decoration: none;
+  font-weight: 600;
+  padding: 8px 16px;
+  border-radius: 30px;
+  color: var(--color-secondary); /* couleur de texte inchangée */
+  background: linear-gradient(90deg, rgba(255,140,0,0.08), rgba(255,140,0,0.03));
+  box-shadow: inset 0 -6px 18px rgba(0,0,0,0.06);
+  opacity: 0.95;
+  transition: color var(--transition-fast), background-color var(--transition-fast), opacity var(--transition-fast), transform var(--transition-fast);
+  min-height: 40px;   /* amélioration d'accessibilité (zone de clic) */
+  display:flex;
+  align-items:center;
+  justify-content:center;
+}
+
+.nav-link:hover,
+.nav-link:focus-visible {
+  opacity: 1;
+  transform: translateY(-2px);
+  color: var(--color-text-light, #ffffff);
+  background: linear-gradient(90deg, var(--color-primary), var(--accent-hover));
+}
+
+.nav-link.active {
+  color: var(--color-text-light);
+  background: linear-gradient(90deg, var(--color-primary), var(--accent-hover));
+  box-shadow: 0 6px 20px rgba(0,0,0,0.08);
+}
+.nav-link.active::after {
+  transform: scaleX(1);
+  opacity: 1;
+}
+
+/* accessible focus for links */
+.nav-link:focus {
+  outline: 3px solid rgba(255,140,0,0.12);
+  outline-offset: 3px;
+  border-radius: 8px;
+}
+/* =================================
+   ICONES & BURGER (conserver animation toggle-icon)
+================================= */
+/* toggle icon (garde ton animation existante) */
+.toggle-icon {
+  width: 30px;
+  height: 30px;
+  cursor: pointer;
+  transition: transform var(--transition-normal);
+}
+.toggle-icon:hover { transform: rotate(15deg) scale(1.05); }
+
+/* burger default (hidden on desktop) */
+.burger {
+  display: none;
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 0.5rem;
+  z-index: 3100;
+  border-radius: 10px;
+  transition: background var(--transition-fast), transform var(--transition-fast);
+}
+.burger:hover { background: rgba(0,0,0,0.04); transform: translateY(-2px); }
+
+.custom-menu-icon {
+  width: 28px;
+  height: 28px;
+  transition: transform var(--transition-fast);
+}
+.burger:hover .custom-menu-icon { transform: scale(1.15); }
+
+/* bouton toggle thème (amélioration hit area, conserve .toggle-icon) */
+.toggle-btn {
+  background:none;
+  border:none;
+  padding:0.25rem;
+  display:inline-flex;
+  align-items:center;
+  justify-content:center;
+  border-radius:8px;
+}
+.toggle-btn:focus-visible {
+  outline: 3px solid rgba(255,140,0,0.18);
+  outline-offset: 4px;
+  border-radius:8px;
+}
+
+/* =================================
+   MENU MOBILE & RESPONSIVE
+   - fixed header on mobile to ensure visibility
+   - preserve original sidebar-nav and overlay behavior
+================================= */
+@media (max-width: 768px) {
+  .navbar {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    z-index: 3000;
+    will-change: transform;
+  }
+
+  /* when header is fixed, ensure main content doesn't overlap */
+  .content { padding-top: var(--navbar-height); transition: padding-top var(--transition-fast); }
+
+  /* hide desktop nav */
+  .navbar ul { display: none; }
+
+  /* show burger */
+  .burger { display: flex; }
+
+  /* Sidebar panel (legacy class used in CSS earlier) */
+  .sidebar-nav {
+    position: fixed;
+    top: 0;
+    right: 0;
+    width: min(75vw, 320px);
+    height: 100vh;
+    padding: var(--navbar-height) 1.75rem 2rem;
+    display:flex;
+    flex-direction:column;
+    align-items:flex-start;
+    gap:1.25rem;
+    background-color: var(--background-card);
+    backdrop-filter: blur(14px);
+    transform: translateX(100%);
+    opacity: 0;
+    visibility: hidden;
+    transition: transform var(--transition-normal), opacity var(--transition-normal), visibility var(--transition-normal);
+    z-index: 2500;
+  }
+  .sidebar-nav.active { transform: translateX(0); opacity:1; visibility:visible; }
+
+  /* Overlay (between content and header/sidebar) */
+  .overlay {
+    position: fixed;
+    top:0; left:0; width:100%; height:100%;
+    background-color: rgba(0,0,0,0.45);
+    opacity:0; visibility:hidden;
+    transition: opacity var(--transition-normal), visibility var(--transition-normal);
+    z-index: 2000;
+    pointer-events: none;
+  }
+  .overlay.active { opacity:1; visibility:visible; pointer-events:auto; }
+
+  /* fallback nav-links (if used) */
+  .nav-links {
+    position: fixed;
+    top: var(--navbar-height);
+    right: -250px;
+    width: 250px;
+    flex-direction: column;
+    background-color: inherit;
+    padding: 1.5rem;
+    gap: 1rem;
+    display: flex;
+    transition: right 0.28s ease;
+    z-index: 2500;
+  }
+  .nav-links.active { right: 0; }
+
+  /* accessibility / smoothing */
+  .navbar, .navbar * { -webkit-font-smoothing: antialiased; -moz-osx-font-smoothing: grayscale; }
+}
+
+/* =================================
+   Small-screen polish
+================================= */
+@media (max-width: 420px) {
+  .logo-main { font-size: 1rem; }
+  .toggle-icon, .custom-menu-icon { width: 26px; height: 26px; }
+  .navbar { padding: 8px 12px; height: calc(var(--navbar-height) - 8px); }
+}
+
+/* =================================
+   Focus & accessibility utilities
+================================= */
+.sr-only { position:absolute; width:1px; height:1px; padding:0; margin:-1px; overflow:hidden; clip:rect(0,0,0,0); border:0; }
+
+.nav-link:focus { outline: none; }
+.nav-link:focus-visible { outline: 3px solid rgba(255,140,0,0.18); outline-offset:4px; border-radius:999px; }
+
+/* End of header CSS merge */

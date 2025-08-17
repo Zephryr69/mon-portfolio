@@ -1,0 +1,499 @@
+/* ==========================================================================
+   Footer.css — version corrigée pour un mode sombre lisible et commentaires clairs
+   Utilise les variables globales définies dans home.css / index.css quand possible.
+   - Objectif : contraste accessible, couleurs cohérentes, responsive.
+   ========================================================================== */
+
+/* -------------------------
+   Styles de base (clair)
+   ------------------------- */
+.footer {
+  width: 100%;
+  padding: 2rem 1.25rem 1.2rem;
+  box-sizing: border-box;
+
+
+  /* Fond léger glassmorphism par défaut (thème clair). */
+  background: rgba(255, 255, 255, 0.06);
+  backdrop-filter: blur(10px);
+
+  /* Séparation haute */
+  border-top: 1px solid rgba(0, 0, 0, 0.06);
+
+  /* Transitions pour changements de thème */
+  transition: background-color var(--transition-normal, 0.4s),
+              color var(--transition-normal, 0.4s),
+              transform var(--transition-fast, 0.18s);
+}
+
+/* -------------------------
+   Mode sombre : contraste assuré
+   - On force des couleurs claires pour le texte
+   - On assombrit légèrement le fond pour une bonne lisibilité
+   ------------------------- */
+[data-theme="dark"] .footer {
+  /* Fond sombre semi-opaque — assez sombre pour garantir contraste. */
+  background: linear-gradient(180deg, rgba(10, 12, 20, 0.88), rgba(8, 10, 18, 0.82));
+  backdrop-filter: blur(8px);
+
+  /* Texte clair pour que tout soit lisible en sombre.
+     Si tu as une variable globale --color-secondary en sombre, elle peut la remplacer. */
+  color: var(--color-secondary, #e6eef8);
+
+  /* Bordure légère et claire */
+  border-top: 1px solid rgba(255, 255, 255, 0.04);
+}
+
+/* -------------------------
+   Conteneur interne (grille)
+   ------------------------- */
+.footer .footer-content {
+  max-width: 1200px;
+  margin: 0 auto;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: 1.5rem; /* un peu plus d’air */
+  align-items: start;
+}
+
+/* -------------------------
+   Sections (structure)
+   - Chaque section est une colonne dans la grille
+   ------------------------- */
+.footer-section {
+  display: flex;
+  flex-direction: column;
+  gap: 0.6rem;
+  min-width: 0;
+}
+
+/* -------------------------
+   Marque / slogan
+   ------------------------- */
+.footer-brand {
+  display: inline-flex;
+  flex-direction: column;
+  text-decoration: none;
+  color: inherit; /* hérite de .footer (s'adapte au thème) */
+}
+.brand-main {
+  font-weight: 800;
+  font-size: 1.05rem;
+  letter-spacing: -0.4px;
+}
+.brand-sub {
+  font-size: 0.82rem;
+  opacity: 0.9;
+  margin-top: 0.15rem;
+}
+
+/* Slogan : couleur héritée + lisibilité */
+.slogan {
+  margin-top: 0.6rem;
+  font-size: 0.95rem;
+  opacity: 0.95;
+  color: inherit;
+  max-width: 28ch;
+  line-height: 1.35;
+}
+
+/* -------------------------
+   Icônes sociales — style et contraste
+   - Icônes utilisent var(--color-primary) en hover pour cohérence visuelle
+   ------------------------- */
+.social-icons {
+  display: flex;
+  gap: 0.6rem;
+  margin-top: 0.65rem;
+}
+.social-icons a {
+  width: 38px;
+  height: 38px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 10px;
+
+  /* Couleur icône : on privilégie le contraste sur fond */
+  color: var(--color-accent, #ffffff);
+
+  /* Fond léger adapté au thème : on teste si on est en sombre via cascade */
+  background: rgba(255, 255, 255, 0.04);
+  transition: transform var(--transition-fast, 0.18s),
+              background var(--transition-fast, 0.18s),
+              box-shadow var(--transition-fast, 0.18s);
+  box-shadow: 0 6px 18px rgba(0, 0, 0, 0.06);
+}
+
+/* Hover : rend visible et cohérent avec la palette */
+.social-icons a:hover {
+  transform: translateY(-4px) scale(1.03);
+  background: linear-gradient(180deg, var(--color-primary, #ff8c00), var(--accent-hover, #ffb347));
+  color: #ffffff;
+  box-shadow: 0 12px 30px rgba(0, 0, 0, 0.12);
+}
+
+/* En sombre, adapter le background par défaut des icônes pour meilleure lisibilité */
+[data-theme="dark"] .social-icons a {
+  background: rgba(255, 255, 255, 0.02);
+  box-shadow: 0 6px 18px rgba(0, 0, 0, 0.45);
+}
+
+/* -------------------------
+   Titres de sections (Contact / Liens / À propos)
+   - On utilise --color-primary pour l'accent (visible dans les deux thèmes)
+   ------------------------- */
+.contact-us h4,
+.links h4,
+.about-site h4 {
+  margin: 0 0 0.4rem;
+  font-size: 0.98rem;
+  color: var(--color-primary, #ff8c00);
+}
+
+/* -------------------------
+   Contact — lisibilité et structure
+   ------------------------- */
+.contact-us p {
+  display: flex;
+  gap: 0.6rem;
+  align-items: center;
+  margin: 0.35rem 0;
+  color: inherit;
+  font-size: 0.95rem;
+  line-height: 1.4;
+}
+.contact-us a {
+  color: inherit;
+  text-decoration: none;
+  border-bottom: 1px dashed transparent;
+}
+.contact-us a:hover {
+  /* En clair : bordure sombre légère ; en sombre : bordure claire discrète */
+  border-bottom-color: rgba(0, 0, 0, 0.06);
+}
+[data-theme="dark"] .contact-us a:hover {
+  border-bottom-color: rgba(255, 255, 255, 0.06);
+}
+
+/* ======================
+   Footer — Liens de navigation (élégant & simple)
+   ====================== */
+
+/* Conteneur : colonne par défaut, gap confortable */
+.footer-nav-links {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 0.6rem;
+  align-items: flex-start;
+}
+
+/* Variante : afficher les liens en ligne (utilise .footer-nav-links.horizontal) */
+.footer-nav-links.horizontal {
+  flex-direction: row;
+  flex-wrap: wrap;
+  gap: 0.5rem 1rem;
+}
+
+/* Le lien lui-même : "pill" glass, transition douce, zone tactile large */
+.footer-nav-link {
+  --pill-padding-y: 0.5rem;
+  --pill-padding-x: 0.9rem;
+  --pill-radius: 999px;
+
+  display: inline-flex;
+  align-items: center;
+  gap: 0.6rem;
+  padding: var(--pill-padding-y) var(--pill-padding-x);
+  border-radius: var(--pill-radius);
+  text-decoration: none;
+  font-weight: 600;
+  color: inherit;
+  background: linear-gradient(180deg, rgba(255,255,255,0.02), rgba(255,255,255,0.01));
+  box-shadow: 0 6px 18px rgba(8,10,14,0.06);
+  transition: transform 220ms cubic-bezier(.2,.9,.3,1),
+              box-shadow 220ms ease,
+              background 220ms ease,
+              color 220ms ease;
+  position: relative;
+  overflow: hidden; /* pour le chevron animé */
+  padding-right: 2.6rem; /* place pour le chevron */
+  white-space: nowrap;
+}
+
+/* Petite marque "glass" en haut à gauche pour raffiner */
+.footer-nav-link::before {
+  content: "";
+  position: absolute;
+  left: 8px;
+  top: 6px;
+  width: 36%;
+  height: 26%;
+  background: linear-gradient(90deg, rgba(255,255,255,0.18), rgba(255,255,255,0.03));
+  transform: skewX(-12deg);
+  opacity: 0.14;
+  pointer-events: none;
+  border-radius: 10px;
+}
+
+/* Chevron animé (indicateur d'action) */
+.footer-nav-link::after {
+  content: "→";
+  position: absolute;
+  right: 10px;
+  top: 50%;
+  transform: translateY(-50%) translateX(-6px);
+  opacity: 0;
+  font-weight: 700;
+  transition: transform 200ms cubic-bezier(.2,.9,.3,1), opacity 200ms ease;
+  color: var(--color-primary, #ff8c00);
+}
+
+/* Hover / focus : léger déplacement, fond accentué et chevron visible */
+.footer-nav-links .footer-nav-link:hover,
+.footer-nav-links .footer-nav-link:focus-visible {
+  transform: translateX(6px);
+  background: linear-gradient(90deg, rgba(255,140,0,0.14), rgba(255,183,71,0.06));
+  color: var(--color-text-light, #fff);
+  box-shadow: 0 12px 30px rgba(0,0,0,0.10);
+}
+.footer-nav-links .footer-nav-link:hover::after,
+.footer-nav-links .footer-nav-link:focus-visible::after {
+  opacity: 1;
+  transform: translateY(-50%) translateX(0);
+}
+
+/* Style du lien actif (classe .active ajoutée côté React/NavLink) */
+.footer-nav-links .footer-nav-link.active {
+  background: linear-gradient(90deg, var(--color-primary), var(--accent-hover));
+  color: var(--color-text-light, #fff);
+  box-shadow: 0 10px 30px rgba(0,0,0,0.12), 0 0 18px rgba(255,140,0,0.08) inset;
+}
+.footer-nav-links .footer-nav-link.active::after {
+  color: rgba(255,255,255,0.95);
+  opacity: 1;
+  transform: translateY(-50%) translateX(0);
+}
+
+/* Focus visible accessible */
+.footer-nav-links .footer-nav-link:focus-visible {
+  outline: 3px solid rgba(255,140,0,0.16);
+  outline-offset: 4px;
+  border-radius: 999px;
+}
+
+/* ----------------------
+   Mode sombre : adaptation des teintes
+   ---------------------- */
+[data-theme="dark"] .footer-nav-links .footer-nav-link {
+  background: linear-gradient(180deg, rgba(255,255,255,0.02), rgba(0,0,0,0.04));
+  box-shadow: 0 8px 20px rgba(0,0,0,0.45);
+  color: var(--color-secondary, #e6eef8);
+}
+[data-theme="dark"] .footer-nav-links .footer-nav-link::before {
+  opacity: 0.08;
+}
+[data-theme="dark"] .footer-nav-links .footer-nav-link:hover,
+[data-theme="dark"] .footer-nav-links .footer-nav-link:focus-visible {
+  background: linear-gradient(90deg, rgba(255,140,0,0.12), rgba(255,183,71,0.04));
+  color: var(--color-text-light, #fff);
+  box-shadow: 0 12px 30px rgba(0,0,0,0.6);
+}
+
+/* Active en sombre (plus profond) */
+[data-theme="dark"] .footer-nav-links .footer-nav-link.active {
+  background: linear-gradient(90deg, rgba(255,140,0,0.95), rgba(255,183,71,0.9));
+  color: #0b0b0b;
+  box-shadow: 0 14px 36px rgba(255,140,0,0.12);
+}
+
+/* ----------------------
+   Responsive touches
+   ---------------------- */
+@media (max-width: 760px) {
+  .footer-nav-links {
+    width: 100%;
+    align-items: center;
+  }
+  .footer-nav-links .footer-nav-link {
+    width: 100%;
+    padding-left: 1rem;
+    padding-right: 3rem;
+    justify-content: flex-start;
+  }
+  .footer-nav-links.horizontal {
+    flex-direction: column;
+  }
+}
+
+/* Option si tu veux une version compacte (ex. footer mini) */
+.footer-nav-links.compact .footer-nav-link {
+  padding: 0.35rem 0.6rem;
+  font-size: 0.95rem;
+}
+
+
+/* -------------------------
+   Texte 'À propos' et bas du footer
+   ------------------------- */
+.about-text {
+  font-size: 0.95rem;
+  line-height: 1.5;
+  opacity: 0.95;
+  color: inherit;
+}
+
+.footer-bottom {
+  max-width: 1200px;
+  margin: 1rem auto 0;
+  padding-top: 0.75rem;
+  border-top: 1px solid rgba(0, 0, 0, 0.04);
+  text-align: center;
+  opacity: 0.85;
+  font-size: 0.88rem;
+  color: inherit;
+}
+[data-theme="dark"] .footer-bottom {
+  border-top-color: rgba(255, 255, 255, 0.04);
+}
+
+/* -------------------------
+   Responsive : réduction de la grille pour petits écrans
+   ------------------------- */
+@media (max-width: 980px) {
+  .footer .footer-content {
+    grid-template-columns: repeat(2, 1fr);
+  }
+  .social-icons a { width: 36px; height: 36px; border-radius: 8px; }
+}
+
+/* Mobile : footer 1 colonne */
+@media (max-width: 520px) {
+  /* Conteneur principal : empilement vertical avec espacement plus naturel */
+  .footer .footer-content {
+    display: flex;
+    flex-direction: column;
+    gap: 2rem;                  /* plus d'espace entre sections */
+    align-items: stretch;       /* sections prennent toute la largeur */
+    padding: 0 1rem;            /* léger padding horizontal */
+    width: 100%;
+  }
+
+  /* Chaque section occupe toute la largeur et se sépare visuellement */
+  .footer-section {
+    width: 100%;
+    min-width: 0;
+    padding-bottom: 1rem;       /* espacement interne pour respirer */
+    border-bottom: 1px solid rgba(255, 255, 255, 0.08); /* séparer visuellement les sections */
+  }
+
+  /* Supprimer la bordure de la dernière section */
+  .footer-section:last-child {
+    border-bottom: none;
+  }
+
+  /* Liens de navigation : colonne avec spacing clair */
+  .footer-nav-links {
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 1rem;
+  }
+  .footer-nav-links .nav-link {
+    display: block;
+    width: 100%;
+    white-space: normal;
+    overflow-wrap: break-word;
+    padding: 0.2rem 0;          /* padding vertical pour toucher facilement sur mobile */
+  }
+
+  /* Ajustements texte et slogan */
+  .slogan {
+    max-width: 100%;
+    font-size: 0.92rem;
+    line-height: 1.4;
+  }
+
+  .brand-main {
+    font-size: 1.05rem;
+  }
+
+  /* Footer bottom : lisible sur petits écrans */
+  .footer-bottom {
+    font-size: 0.84rem;
+    padding-top: 1rem;
+  }
+
+  /* Icônes sociales : espacement suffisant */
+  .social-icons {
+    gap: 0.75rem;
+  }
+  .social-icons a {
+    width: 36px;
+    height: 36px;
+    border-radius: 8px;
+  }
+}
+/* -------------------------
+   Mobile : 1 colonne avec hiérarchie claire
+   ------------------------- */
+@media (max-width: 600px) {
+  .footer .footer-content {
+    flex-direction: column;
+    display: flex;
+    gap: 1.8rem;
+  }
+
+  .footer-section {
+    width: 100%;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+    padding-bottom: 1rem;
+  }
+
+  .footer-section:last-child { border-bottom: none; }
+
+  /* Nav links en 2 colonnes max pour gagner de l’espace */
+  .nav-links {
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: flex-start;
+    gap: 0.8rem 1.2rem;
+  }
+  .nav-links .nav-link {
+    flex: 1 1 calc(50% - 1rem); /* 2 colonnes auto sur mobile */
+    text-align: left;
+  }
+
+  /* Icônes sociales centrées */
+  .social-icons {
+    justify-content: center;
+  }
+
+  .footer-bottom {
+    font-size: 0.8rem;
+    line-height: 1.4;
+  }
+}
+
+/* -------------------------
+   Très petit mobile (≤360px)
+   ------------------------- */
+@media (max-width: 360px) {
+  .brand-main { font-size: 0.95rem; }
+  .slogan { font-size: 0.85rem; }
+  .nav-links .nav-link { font-size: 0.85rem; }
+  .social-icons a { width: 32px; height: 32px; }
+}
+/* -------------------------
+   Accessibilité : focus visible
+   - Contraste et largeur du contour pensés pour l'accessibilité.
+   ------------------------- */
+.footer a { color: inherit; }
+.footer a:focus {
+  outline: 3px solid rgba(255, 140, 0, 0.18);
+  outline-offset: 3px;
+  border-radius: 6px;
+}

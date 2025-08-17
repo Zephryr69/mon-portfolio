@@ -1,0 +1,146 @@
+/* ==========================================================================
+   index.css — version logique & cohérente (layout + thèmes)
+   - Variables centralisées, layout flex, défilement OK
+   - Compat avec .containner (typo) et .container
+   ========================================================================== */
+
+/* Polices */
+@import url('https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Updock&display=swap');
+
+/* -------------------------
+   Reset & base
+   ------------------------- */
+* { margin: 0; padding: 0; box-sizing: border-box; }
+
+html {
+  scroll-behavior: smooth;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+body { 
+  font-family: 'Outfit', sans-serif;
+  overflow-x: hidden;
+}
+
+/* Le root sert de conteneur flex pour pousser le footer en bas
+   et garder la page scrollable. */
+#root {
+  min-height: 100dvh;        /* viewport dynamique (mobile-safe) */
+  display: flex;
+  flex-direction: column;
+}
+
+/* Le contenu principal prend l’espace restant */
+main.content { 
+  flex: 1 1 auto;
+  min-width: 0;
+}
+
+/* -------------------------
+   Variables (thème clair par défaut)
+   ------------------------- */
+:root {
+
+  --navbar-height: 70px;           /* utile pr offset mobile */
+  --transition-fast: 0.18s ease;
+  --transition-normal: 0.4s cubic-bezier(.4,0,.2,1);
+}
+
+/* -------------------------
+   Thème sombre (3 entrées possibles)
+   - .container.dark (nouveau nom)
+   - .containner.dark (compat)
+   - [data-theme="dark"] (utile si tu manipules <html>)
+   ------------------------- */
+.container.dark,
+.containner.dark,
+[data-theme="dark"] {
+  --primary-bg: #0a1a2f;
+  --text-color: #f5f5f5;
+  --card-bg: rgba(20, 30, 48, 0.85);
+}
+
+/* -------------------------
+   Conteneur d’app (compat : .containner & .container)
+   ------------------------- */
+.containner, .container {
+  position: relative;              /* crée le contexte pour ::before décoratif */
+  background: var(--primary-bg);
+  color: var(--text-color);
+  transition: background var(--transition-normal), color var(--transition-normal);
+}
+
+/* Décor animé (n’intercepte pas les clics) */
+.containner::before, .container::before {
+  content: "";
+  position: fixed;
+  inset: -50% -50% auto auto;
+  width: 200%;
+  height: 200%;
+  background:
+    radial-gradient(circle at 30% 30%, rgba(255,255,255,0.05), transparent 40%),
+    radial-gradient(circle at 70% 70%, rgba(255,255,255,0.05), transparent 40%);
+  animation: floatBg 15s infinite alternate ease-in-out;
+  z-index: 0;                      /* derrière tout */
+  pointer-events: none;            /* ne bloque pas les interactions */
+}
+
+@keyframes floatBg {
+  0%   { transform: translate(0,0) scale(1); }
+  100% { transform: translate(20px,20px) scale(1.05); }
+}
+
+/* -------------------------
+   Composants génériques
+   ------------------------- */
+.card {
+  background: var(--card-bg);
+  backdrop-filter: blur(10px);
+  border-radius: 15px;
+  padding: 20px;
+  box-shadow: 0 8px 20px rgba(0,0,0,0.15);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+.card:hover {
+  transform: translateY(-5px) scale(1.02);
+  box-shadow: 0 12px 30px rgba(0,0,0,0.25);
+}
+
+.btn {
+  background: var(--primary-color);
+  color: #fff;
+  padding: 12px 25px;
+  border-radius: 30px;
+  font-weight: 600;
+  text-decoration: none;
+  display: inline-block;
+  box-shadow: var(--button-glow);
+  transition: transform 0.2s ease, box-shadow 0.3s ease;
+}
+.btn:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 0 30px rgba(255,255,255,0.8), var(--button-glow);
+}
+
+/* -------------------------
+   Header fixe sur mobile : éviter qu’il recouvre
+   - Tu as déjà un header sticky/fixed côté Header.css ;
+     ici, on crée l’offset côté contenu sur petit écran.
+   ------------------------- */
+@media (max-width: 768px) {
+  /* Si la navbar est en `position: fixed` dans Header.css,
+     on ajoute un padding-top au contenu. */
+  main.content {
+    padding-top: var(--navbar-height);
+  }
+}
+
+/* -------------------------
+   Bouton "scroll to top" (secours z-index)
+   - Si ton composant a .scroll-to-top, on garantit qu’il reste au-dessus.
+   ------------------------- */
+.scroll-to-top {
+  z-index: 3500; /* header est à 3000 chez toi -> + haut */
+}

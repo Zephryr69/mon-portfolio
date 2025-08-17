@@ -1,0 +1,25 @@
+.scroll-to-top {
+  position: fixed; /* Le fixe par rapport à la fenêtre du navigateur */
+  bottom: 2rem;  /* 2rem du bas */
+  right: 2rem;   /* 2rem de la droite */
+  
+  /* ... vos styles de bouton (couleur, taille, etc.) ... */
+  background: linear-gradient(90deg, #ff8c00, #ffcc01);
+  color: var(--color-text-light);
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  border: none;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+
+  /* 👇 LA LIGNE LA PLUS IMPORTANTE 👇 */
+  z-index: 3001; /* Doit être supérieur à celui de la navbar (3000) */
+}
+
+.scroll-to-top:hover {
+  transform: scale(1.2) rotate(10deg);
+}
