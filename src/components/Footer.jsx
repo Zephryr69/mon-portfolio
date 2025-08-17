@@ -30,7 +30,7 @@ export default function Footer() {
 
           <div className="social-icons" aria-label="Réseaux sociaux">
             <a
-              href="https://www.facebook.com/amandino.aiminasso.7"
+              href="https://www.facebook.com/"
               target="_blank"
               rel="noopener noreferrer"
               aria-label="Facebook"
@@ -54,7 +54,7 @@ export default function Footer() {
               <FaGithub />
             </a>
             <a
-              href="https://youtube.com/@amandinoaiminasso120?si=yhVjVKjFdufGYizV"
+              href="https://youtube.com/tonchaine"
               target="_blank"
               rel="noopener noreferrer"
               aria-label="YouTube"
