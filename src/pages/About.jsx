@@ -2,6 +2,7 @@ import React from "react";
 import "./About.css";
 import { useTheme } from "../contexts/ThemeContext";
 import { Link } from "react-router-dom";
+// eslint-disable-next-line no-unused-vars
 import { motion } from "framer-motion";
 import profileImg from "../assets/profile.jpg";
 import {

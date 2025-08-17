@@ -30,7 +30,7 @@ export default function Footer() {
 
           <div className="social-icons" aria-label="Réseaux sociaux">
             <a
-              href="https://www.facebook.com/"
+              href="https://www.facebook.com/amandino.aiminasso.7"
               target="_blank"
               rel="noopener noreferrer"
               aria-label="Facebook"
@@ -38,7 +38,7 @@ export default function Footer() {
               <FaFacebookF />
             </a>
             <a
-              href="https://www.linkedin.com/in/tonprofil"
+              href="https://www.linkedin.com/in/amandino-a%C3%AFminasso-68034a224?utm_source=share&utm_campaign=share_via&utm_content=profile&utm_medium=android_app"
               target="_blank"
               rel="noopener noreferrer"
               aria-label="LinkedIn"
@@ -46,7 +46,7 @@ export default function Footer() {
               <FaLinkedinIn />
             </a>
             <a
-              href="https://github.com/tonpseudo"
+              href="https://github.com/Zephryr69"
               target="_blank"
               rel="noopener noreferrer"
               aria-label="GitHub"
@@ -54,7 +54,7 @@ export default function Footer() {
               <FaGithub />
             </a>
             <a
-              href="https://youtube.com/tonchaine"
+              href="https://youtube.com/@amandinoaiminasso120?si=yhVjVKjFdufGYizV"
               target="_blank"
               rel="noopener noreferrer"
               aria-label="YouTube"

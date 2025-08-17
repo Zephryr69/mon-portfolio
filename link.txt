@@ -1,5 +1,15 @@
+Creer un repository sur Github
 git init
 git add .
 git commit -m "Initial commit"
 git remote add origin https://github.com/Zephryr69/mon-portfolio.git
+git branch -M main   
 git push -u origin main
+npm run predeploy  # Cette commande exécute 'vite build'
+npm run deploy     # Cette commande déploie le contenu du dossier 'dist' sur GitHub Pages
+
+git add .
+git commit -m "Mise à jour du site"
+git push origin main
+npm run deploy
+
